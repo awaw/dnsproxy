@@ -1,0 +1,160 @@
+.\" $Id: dnsproxy.1.in,v 1.8 2004/04/05 12:47:07 armin Exp $
+.\"
+.\" Copyright (c) 2003,2004 Armin Wolfermann
+.\"
+.\" Permission is hereby granted, free of charge, to any person obtaining a
+.\" copy of this software and associated documentation files (the "Software"),
+.\" to deal in the Software without restriction, including without limitation
+.\" the rights to use, copy, modify, merge, publish, distribute, sublicense,
+.\" and/or sell copies of the Software, and to permit persons to whom the
+.\" Software is furnished to do so, subject to the following conditions:
+.\"
+.\" The above copyright notice and this permission notice shall be included in
+.\" all copies or substantial portions of the Software.
+.\"
+.\" THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+.\" IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+.\" FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+.\" THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+.\" LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+.\" FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+.\" DEALINGS IN THE SOFTWARE.
+.\"
+.Dd November 29, 2003
+.Dt DNSPROXY 1
+.Os LOCAL
+.Sh NAME
+.Nm dnsproxy
+.Nd DNS proxy
+.Sh SYNOPSIS
+.Nm dnsproxy
+.Op Fl dhV
+.Op Fl c Ar file
+.\" ------------------------------------------------------------------
+.Sh DESCRIPTION
+.\" ------------------------------------------------------------------
+The
+.Nm
+daemon waits for nameserver queries on a user specified
+address, dispatches these queries to authoritative and recursive
+nameservers and forwards the received answers back to the original
+client.
+.Pp
+The options are as follows:
+.Bl -tag -width Dfxfile
+.It Fl c Ar file
+Read configuration from file.
+.It Fl d
+Detach from current terminal and run as background process.
+.It Fl h
+Show usage.
+.It Fl V 
+Show version.
+.El
+.Pp
+If a client from an internal IP address does a recursive lookup
+the query is forwarded to a recursive DNS server.
+Authoritative queries and queries coming from clients in
+foreign networks are forwarded to an authoritative DNS server.
+.Pp
+.\" ------------------------------------------------------------------
+.Sh CONFIGURATION FILE
+.\" ------------------------------------------------------------------
+At startup
+.Nm
+reads a configuration file specified via the -c option
+or at the default location of /etc/dnsproxy.conf.
+.Pp
+The following keywords are recognized:
+.Bl -ohang
+.It authoritative Ar IP
+Address of the authoritative nameserver [required].
+.It recursive Ar IP
+Address of the recursive nameserver [required].
+.It listen Ar IP
+Local address (defaults to 0.0.0.0).
+.It port Ar number
+Local port number (defaults to 53).
+.It chroot Ar path
+A path to chroot to before starting to answer queries.
+.It user Ar name
+A user to change to before starting to answer queries.
+.It authoritative-timeout Ar seconds
+Time in seconds when authoritative queries time out (defaults to 10).
+.It recursive-timeout Ar seconds
+Time in seconds when recursive queries time out (defaults to 90).
+.It authoritative-port Ar number
+Port number on authoritative nameserver (defaults to 53).
+.It recursive-port Ar number
+Port number on recursive nameserver (defaults to 53).
+.It statistics Ar seconds
+Period between output of statistics (defaults to 3600).
+Use 0 to disable output of statistics completely.
+.It internal Fa network
+Declare networks recognized as internal and thus eligible to do
+recursive queries. One network in CIDR notation per keyword.
+.El
+.Ss EXAMPLE
+.Bd -literal -offset indent
+authoritative 10.1.1.1
+recursive 127.0.0.1
+recursive-port 10053
+listen 192.168.1.1
+port 53
+chroot /var/empty
+user nobody
+internal 192.168.1.0/24
+internal 127.0.0.1
+.Ed
+.Pp
+.\" ------------------------------------------------------------------
+.Sh STATISTICS
+.\" ------------------------------------------------------------------
+Every hour (by default)
+.Nm
+logs the collected statistics about its usage to standard error
+(or syslog when running detached). Statistics look like
+.Bd -literal -offset indent
+ActiveQr AuthorQr RecursQr AllQuery Answered
+0        0        0        0        0
+TimeoutQ DroppedQ DroppedA LateAnsw HashColl
+0        0        0        0        0
+.Ed
+.Pp
+and have the following meaning:
+.Bl -ohang
+.It ActiveQr
+Number of currently active queries proxied to the servers.
+.It AuthorQr
+Accumulated number of authoritative queries.
+.It RecursQr
+Accumulated number of recursive queries.
+.It AllQuery
+Accumulated number of all queries ever received.
+.It Answered
+Accumulated number of answered queries.
+.It TimeoutQ
+Accumulated number of queries that did not receive an answer in time.
+.It DroppedQ
+Accumulated number of dropped queries (e.g. transmission errors).
+.It DroppedA
+Accumulated number of dropped answers.
+.It LateAnsw
+Accumulated number of answers received after the timeout period.
+.It HashColl
+Accumulated number of hash collisions in the query list.
+.El
+.\"
+.Sh SEE ALSO
+.Xr named 1
+.Sh VERSION
+This manual page describes
+.Nm
+version @PACKAGE_VERSION@.
+.Sh AUTHORS
+Armin Wolfermann <armin@wolfermann.org>
+.Pp
+The
+.Nm
+homepage is at http://www.wolfermann.org/dnsproxy.html.
+.Pp

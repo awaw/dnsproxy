@@ -1,0 +1,48 @@
+# $Id: Makefile.in,v 1.16 2010/01/13 17:20:39 armin Exp $
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+bindir=@bindir@
+sbindir=@sbindir@
+mandir=@mandir@
+
+CC=@CC@
+CFLAGS=@CFLAGS@ -I. @DEFS@ -DVERSION="\"@PACKAGE_VERSION@\""
+INSTALL=@INSTALL@
+LDFLAGS=@LDFLAGS@
+LIBS=@LIBS@
+MAN=@MAN@
+NROFF=@NROFF@
+OBJS=dnsproxy.o daemon.o hash.o internal.o log.o parse.o stats.o
+@SET_MAKE@
+
+all: dnsproxy dnsproxy.cat1
+
+install: all
+	$(INSTALL) -s -m 555 dnsproxy $(sbindir)
+	$(INSTALL) -m 444 dnsproxy.cat1 $(mandir)/cat1/dnsproxy.0
+
+dnsproxy: $(OBJS)
+	$(CC) $(LDFLAGS) -o dnsproxy $(OBJS) $(LIBS)
+
+dnsproxy.cat1: dnsproxy.1
+	$(NROFF) -$(MAN) dnsproxy.1 > dnsproxy.cat1
+
+clean:
+	-rm -f dnsproxy $(OBJS) dnsproxy.cat1 dnsproxy.core
+
+distclean: clean
+	-rm -f Makefile config.log config.status config.h
+
+cvsclean: clean
+	-rm -f Makefile config.log config.status config.h
+	-rm -f configure config.h.in config.h.in~
+	-rm -f README dnsproxy.1
+	-rm -rf autom4te.cache
+
+DISTDIR=@PACKAGE_TARNAME@-@PACKAGE_VERSION@
+dist:
+	-rm -f $(DISTDIR).tar $(DISTDIR).tar.gz
+	-tar -I MANIFEST -s '/^/$(DISTDIR)\//' -cvf $(DISTDIR).tar
+	-gzip -9 $(DISTDIR).tar
+
