@@ -1,4 +1,3 @@
-/* $Id: daemon.c,v 1.3 2005/05/16 22:52:21 armin Exp $ */
 /*-
  * Copyright (c) 1990, 1993
  *	The Regents of the University of California.  All rights reserved.

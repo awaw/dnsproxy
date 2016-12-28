@@ -1,3 +1,5 @@
+#### DESCRIPTION
+
   The dnsproxy daemon is a proxy for DNS queries. It forwards these queries
   to two previously configured nameservers: one for authoritative queries
   and another for recursive queries. The received answers are sent back to

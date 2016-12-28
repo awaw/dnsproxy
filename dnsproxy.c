@@ -1,4 +1,3 @@
-/* $Id: dnsproxy.c,v 1.16 2010/01/11 15:02:00 armin Exp $ */
 /*
  * Copyright (c) 2003,2004,2005,2010 Armin Wolfermann
  *

@@ -4,7 +4,8 @@ DNSPROXY @PACKAGE_VERSION@
   The dnsproxy daemon is a proxy for DNS queries. It forwards these queries
   to two previously configured nameservers: one for authoritative queries
   and another for recursive queries. The received answers are sent back to
-  the client unchanged. No local caching is done.
+  the client unchanged. No local caching is done and only UDP queries are
+  supported.
 
   Primary motivation for this project was the need to replace Bind servers
   with djbdns in an ISP environment. These servers get recursive queries
@@ -35,9 +36,8 @@ INSTALLATION
   Unlike previous releases the @PACKAGE_VERSION@ version does not include the libevent
   library. It should now also be available from your operating systems
   ports/packages/rpm/deb repository or as always from the source at
-  http://www.monkey.org/~provos/libevent/. If it is not found by the
-  configure script you may specify the directory prefix of your libevent
-  installation with: 
+  http://libevent.org/. If it is not found by the configure script you
+  may specify the directory prefix of your libevent installation with: 
 
     ./configure --with-libevent=/usr/local
 
@@ -100,4 +100,3 @@ LICENSE
   DEALINGS IN THE SOFTWARE.
 
 -----------------------------------------------------------------------------
-$Id: README.in,v 1.17 2010/01/13 17:20:39 armin Exp $

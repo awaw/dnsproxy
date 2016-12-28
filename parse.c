@@ -1,4 +1,3 @@
-/* $Id: parse.c,v 1.12 2005/05/16 22:52:21 armin Exp $ */
 /*
  * Copyright (c) 2003,2004 Armin Wolfermann
  *

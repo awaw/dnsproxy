@@ -1,4 +1,3 @@
-/* $Id: internal.c,v 1.9 2004/04/05 12:47:07 armin Exp $ */
 /*
  * Copyright (c) 2003,2004 Armin Wolfermann
  *

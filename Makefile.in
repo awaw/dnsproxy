@@ -1,5 +1,3 @@
-# $Id: Makefile.in,v 1.16 2010/01/13 17:20:39 armin Exp $
-
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 bindir=@bindir@
