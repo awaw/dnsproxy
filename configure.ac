@@ -1,4 +1,4 @@
-AC_INIT(dnsproxy, 1.16)
+AC_INIT(dnsproxy, 1.17)
 AC_PREREQ(2.59)
 
 AC_CONFIG_HEADERS(config.h)

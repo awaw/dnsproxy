@@ -33,7 +33,7 @@ INSTALLATION
     make
     make install
 
-  Unlike previous releases the @PACKAGE_VERSION@ version does not include the libevent
+  Unlike earlier releases this release does not include the libevent
   library. It should now also be available from your operating systems
   ports/packages/rpm/deb repository or as always from the source at
   http://libevent.org/. If it is not found by the configure script you
@@ -79,7 +79,7 @@ LICENSE
 
   This software is released under an OSI approved MIT-style license:
 
-  Copyright (c) 2003,2004,2005,2010 Armin Wolfermann.
+  Copyright (c) 2003,2004,2005,2010,2016 Armin Wolfermann.
 
   Permission is hereby granted, free of charge, to any person obtaining a
   copy of this software and associated documentation files (the "Software"),

@@ -29,7 +29,7 @@
     make
     make install
   ```
-  Unlike previous releases the 1.16 version does not include the libevent
+  Unlike earlier releases this release does not include the libevent
   library. It should now also be available from your operating systems
   ports/packages/rpm/deb repository or as always from the source at
   http://libevent.org/. If it is not found by the configure script
