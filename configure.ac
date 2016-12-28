@@ -1,10 +1,5 @@
-dnl $Id: configure.ac,v 1.15 2010/01/13 17:20:39 armin Exp $
-dnl ------------------------------------------------------------------
-
 AC_INIT(dnsproxy, 1.16)
 AC_PREREQ(2.59)
-
-AC_REVISION([$Revision: 1.15 $])
 
 AC_CONFIG_HEADERS(config.h)
 
@@ -55,13 +50,25 @@ dnl Enable extended warnings while developing
 dnl ------------------------------------------------------------------
 
 AC_ARG_ENABLE(warnings, [
-  --enable-warnings       enable all sorts of warnings for debugging],
+AC_HELP_STRING([--enable-warnings],
+[enable all sorts of warnings for debugging])],
 [
 	CFLAGS="${CFLAGS} -Wall -Werror -Wcast-qual -Wmissing-declarations \
 		-W -Wmissing-prototypes -Wnested-externs -Wshadow \
 		-Wwrite-strings -Wno-unused -Wno-sign-compare"
 ])
 AC_SUBST(CFLAGS)
+
+dnl ------------------------------------------------------------------
+dnl Maximum EDNS packet size
+dnl ------------------------------------------------------------------
+
+AC_ARG_ENABLE([edns], [
+AC_HELP_STRING([--enable-edns=N],
+[maximum EDNS packet size (default is 4096)])],
+[], [enable_edns=4096])
+AS_IF([test $enable_edns = no], [enable_edns=4096])
+AC_DEFINE_UNQUOTED([MAXEDNS],[$enable_edns],[Maximum EDNS packet size])
 
 dnl ------------------------------------------------------------------
 dnl Check for libevent library
@@ -125,7 +132,7 @@ AC_ARG_WITH(libevent,
 if test "$lefound" = "no"; then
 	AC_MSG_ERROR([
 	This software requires the libevent library
-	available at http://monkey.org/~provos/libevent/
+	available at http://libevent.org/
 
 	You may specify it's directory prefix with
 	./configure --with-libevent=/prefix/of/libevent

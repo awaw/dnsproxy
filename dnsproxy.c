@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003,2004,2005,2010 Armin Wolfermann
+ * Copyright (c) 2003,2004,2005,2010,2016 Armin Wolfermann
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -33,7 +33,6 @@
 #include "dnsproxy.h"
 
 #define RD(x) (*(x + 2) & 0x01)
-#define MAX_BUFSPACE 512
 
 static unsigned short queryid = 0;
 #define QUERYID queryid++
@@ -83,7 +82,7 @@ timeout(int fd, short event, void *arg)
 static void
 do_query(int fd, short event, void *arg)
 {
-	char buf[MAX_BUFSPACE];
+	char buf[MAXEDNS];
 	int byte = 0;
 	struct sockaddr_in fromaddr;
 	unsigned int fromlen = sizeof(fromaddr);
@@ -186,7 +185,7 @@ do_query(int fd, short event, void *arg)
 static void
 do_answer(int fd, short event, void *arg)
 {
-	char buf[MAX_BUFSPACE];
+	char buf[MAXEDNS];
 	int byte = 0;
 	struct request *query = NULL;
 
