@@ -1,12 +1,13 @@
   The dnsproxy daemon is a proxy for DNS queries. It forwards these queries
   to two previously configured nameservers: one for authoritative queries
   and another for recursive queries. The received answers are sent back to
-  the client unchanged. No local caching is done.
+  the client unchanged. No local caching is done and only UDP queries are
+  supported.
 
   Primary motivation for this project was the need to replace Bind servers
-  with djbdns in an ISP environment. These servers get recursive queries
+  with djbdns in an ISP environment. These servers got recursive queries
   from customers and authoritative queries from outside at the same IP
-  address. Now it is possible to run dnscache and tinydns on the same
+  address. Now it was possible to run dnscache and tinydns on the same
   machine with queries dispatched by dnsproxy.
 
   Other scenarios are firewalls where you want to proxy queries to the real
@@ -26,12 +27,12 @@
     make
     make install
   ```
-  Unlike previous releases the @PACKAGE_VERSION@ version does not include the libevent
+  Unlike previous releases the 1.16 version does not include the libevent
   library. It should now also be available from your operating systems
   ports/packages/rpm/deb repository or as always from the source at
-  http://www.monkey.org/~provos/libevent/. If it is not found by the
-  configure script you may specify the directory prefix of your libevent
-  installation with: 
+  http://libevent.org/. If it is not found by the configure script
+  you may specify the directory prefix of your libevent installation
+  with: 
   ```
     ./configure --with-libevent=/usr/local
   ```
