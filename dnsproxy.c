@@ -290,15 +290,9 @@ main(int argc, char *argv[])
 	if (bind(sock_query, (struct sockaddr *)&addr, sizeof(addr)) != 0)
 		fatal("unable to bind socket: %s", strerror(errno));
 
-	/* Create and bind answer socket */
+	/* Create answer socket */
 	if ((sock_answer = socket(AF_INET, SOCK_DGRAM, 0)) == -1)
 		fatal("unable to create socket: %s", strerror(errno));
-
-	memset(&addr, 0, sizeof(struct sockaddr_in));
-	addr.sin_family = AF_INET;
-
-	if (bind(sock_answer, (struct sockaddr *)&addr, sizeof(addr)) != 0)
-		fatal("unable to bind socket: %s", strerror(errno));
 
 	/* Fill sockaddr_in structs for both servers */
 	memset(&authoritative_addr, 0, sizeof(struct sockaddr_in));
