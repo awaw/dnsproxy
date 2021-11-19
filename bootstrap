@@ -1,5 +1,5 @@
 #!/bin/sh
-AUTOCONF_VERSION=2.59
+AUTOCONF_VERSION=2.60
 export AUTOCONF_VERSION
 autoheader --force ${@} &&
 autoconf ${@} &&
