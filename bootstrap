@@ -1,6 +1,3 @@
 #!/bin/sh
-AUTOCONF_VERSION=2.59
-export AUTOCONF_VERSION
-autoheader --force ${@} &&
-autoconf ${@} &&
+autoreconf -fi
 echo "Bootstrapped successfully. Now run configure."
