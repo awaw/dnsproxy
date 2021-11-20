@@ -2,6 +2,7 @@ AC_INIT(dnsproxy, 1.17)
 AC_PREREQ(2.60)
 
 AC_CONFIG_HEADERS(config.h)
+AM_INIT_AUTOMAKE
 
 dnl ------------------------------------------------------------------
 dnl Check for programs
