@@ -160,9 +160,6 @@ dnl but not for distributed tarballs.
 dnl ------------------------------------------------------------------
 
 AC_CONFIG_FILES(Makefile)
-if test -r "README.in"; then
-	AC_CONFIG_FILES(README)
-fi
 if test -r "dnsproxy.1.in"; then
 	AC_CONFIG_FILES(dnsproxy.1)
 fi
