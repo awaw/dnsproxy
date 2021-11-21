@@ -1,0 +1,23 @@
+name: build-check
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: install_dependencies
+      run: sudo apt update && sudo apt install libevent-dev
+    - name: build
+      run: |
+           ./bootstrap
+           ./configure
+           make
+    - name: install_run
+      run: |
+           sudo make install
+           dnsproxy -V
+           dnsproxy -h
