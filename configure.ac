@@ -1,5 +1,5 @@
 AC_INIT(dnsproxy, 1.17)
-AC_PREREQ(2.59)
+AC_PREREQ(2.60)
 
 AC_CONFIG_HEADERS(config.h)
 
@@ -17,6 +17,7 @@ dnl ------------------------------------------------------------------
 dnl Check for headers
 dnl ------------------------------------------------------------------
 
+AC_USE_SYSTEM_EXTENSIONS
 AC_C_CONST
 AC_HEADER_STDC
 AC_HEADER_TIME

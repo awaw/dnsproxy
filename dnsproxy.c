@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <grp.h>
 
 #define GLOBALS 1
 #include "dnsproxy.h"
