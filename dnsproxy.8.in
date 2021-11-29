@@ -20,7 +20,7 @@
 .\" DEALINGS IN THE SOFTWARE.
 .\"
 .Dd November 29, 2003
-.Dt DNSPROXY 1
+.Dt DNSPROXY 8
 .Os LOCAL
 .Sh NAME
 .Nm dnsproxy
@@ -145,7 +145,7 @@ Accumulated number of hash collisions in the query list.
 .El
 .\"
 .Sh SEE ALSO
-.Xr named 1
+.Xr named 8
 .Sh VERSION
 This manual page describes
 .Nm

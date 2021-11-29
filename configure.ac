@@ -146,7 +146,7 @@ dnl Check for available nroff and manpage macro package
 dnl ------------------------------------------------------------------
 
 AC_PATH_PROGS([NROFF], [nroff awf], [/bin/false], [$PATH:/usr/ucb])
-if ${NROFF} -mdoc dnsproxy.1 >/dev/null 2>&1; then
+if ${NROFF} -mdoc dnsproxy.8 >/dev/null 2>&1; then
 	MAN=mdoc
 else
 	MAN=man
@@ -160,8 +160,8 @@ dnl but not for distributed tarballs.
 dnl ------------------------------------------------------------------
 
 AC_CONFIG_FILES(Makefile)
-if test -r "dnsproxy.1.in"; then
-	AC_CONFIG_FILES(dnsproxy.1)
+if test -r "dnsproxy.8.in"; then
+	AC_CONFIG_FILES(dnsproxy.8)
 fi
 
 AC_OUTPUT()

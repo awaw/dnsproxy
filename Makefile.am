@@ -2,7 +2,7 @@ sbin_PROGRAMS = dnsproxy
 dnsproxy_SOURCES = dnsproxy.c dnsproxy.h \
                    daemon.c hash.c internal.c log.c parse.c stats.c
 
-man_MANS = dnsproxy.1
+man_MANS = dnsproxy.8
 
 distclean-local:
 	rm -rf autom4te.cache dnsproxy-[0-9]*
