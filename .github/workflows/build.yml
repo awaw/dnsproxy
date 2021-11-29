@@ -11,13 +11,19 @@ jobs:
     - uses: actions/checkout@v2
     - name: install_dependencies
       run: sudo apt update && sudo apt install libevent-dev
-    - name: build
+    - name: build_dist_distclean
       run: |
            ./bootstrap
            ./configure
            make
-    - name: install_run
+           make dist
+           ls dnsproxy-[0-9]*.tar.gz
+           make distclean
+    - name: build_install_run
       run: |
+           ./bootstrap
+           ./configure
+           make
            sudo make install
            dnsproxy -V
-           dnsproxy -h
+           dnsproxy -h 2>&1 | egrep -iC10 usage
