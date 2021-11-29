@@ -2,6 +2,7 @@ AC_INIT(dnsproxy, 1.17)
 AC_PREREQ(2.60)
 
 AC_CONFIG_HEADERS(config.h)
+AM_INIT_AUTOMAKE
 
 dnl ------------------------------------------------------------------
 dnl Check for programs
@@ -159,9 +160,6 @@ dnl but not for distributed tarballs.
 dnl ------------------------------------------------------------------
 
 AC_CONFIG_FILES(Makefile)
-if test -r "README.in"; then
-	AC_CONFIG_FILES(README)
-fi
 if test -r "dnsproxy.1.in"; then
 	AC_CONFIG_FILES(dnsproxy.1)
 fi
