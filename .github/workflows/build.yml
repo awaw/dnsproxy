@@ -27,3 +27,4 @@ jobs:
            sudo make install
            dnsproxy -V
            dnsproxy -h 2>&1 | egrep -iC10 usage
+           
