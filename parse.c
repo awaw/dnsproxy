@@ -88,6 +88,14 @@ parse(const char *fname)
 			port = strtol(arg, NULL, 10);
 			continue;
 		}
+		if (!strcmp(key, "listen_answer")) {
+			listen_answer = strdup(arg);
+			continue;
+		}
+		if (!strcmp(key, "port_answer")) {
+			port_answer = strtol(arg, NULL, 10);
+			continue;
+		}
 		if (!strcmp(key, "chroot")) {
 			chrootdir = strdup(arg);
 			continue;

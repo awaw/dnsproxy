@@ -291,9 +291,20 @@ main(int argc, char *argv[])
 	if (bind(sock_query, (struct sockaddr *)&addr, sizeof(addr)) != 0)
 		fatal("unable to bind socket: %s", strerror(errno));
 
-	/* Create answer socket */
+	/* Create and bind answer socket */
 	if ((sock_answer = socket(AF_INET, SOCK_DGRAM, 0)) == -1)
 		fatal("unable to create socket: %s", strerror(errno));
+
+	memset(&addr, 0, sizeof(struct sockaddr_in));
+	if (!listen_answer)
+                addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+        else
+                addr.sin_addr.s_addr = inet_addr(listen_answer);
+        addr.sin_port = htons(port_answer);
+	addr.sin_family = AF_INET;
+
+	if (bind(sock_answer, (struct sockaddr *)&addr, sizeof(addr)) != 0)
+		fatal("unable to bind socket: %s", strerror(errno));
 
 	/* Fill sockaddr_in structs for both servers */
 	memset(&authoritative_addr, 0, sizeof(struct sockaddr_in));
