@@ -79,10 +79,12 @@ GLOBAL_INIT(unsigned int recursive_port, 53);
 GLOBAL_INIT(unsigned int recursive_timeout, 90);
 GLOBAL_INIT(unsigned int stats_timeout, 3600);
 GLOBAL_INIT(unsigned int port, 53);
+GLOBAL_INIT(unsigned int port_answer, 53003);
 
 GLOBAL(char *authoritative);
 GLOBAL(char *chrootdir);
 GLOBAL(char *listenat);
+GLOBAL(char *listen_answer);
 GLOBAL(char *recursive);
 GLOBAL(char *user);
 
