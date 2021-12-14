@@ -53,7 +53,8 @@ daemon(int nochdir, int noclose)
 		return (-1);
 
 	if (!nochdir)
-		(void)chdir("/");
+		if (chdir("/"))
+                        return (-1);
 
 	if (!noclose && (fd = open("/dev/null", O_RDWR, 0)) != -1) {
 		(void)dup2(fd, STDIN_FILENO);
