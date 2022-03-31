@@ -23,18 +23,11 @@
 #ifndef _DNSPROXY_H_
 #define _DNSPROXY_H_
 
-/* LONGLONG */
-#include <sys/types.h>
-
-#if TIME_WITH_SYS_TIME
+#if HAVE_SYS_TIME_H
 # include <sys/time.h>
 # include <time.h>
 #else
-# if HAVE_SYS_TIME_H
-#  include <sys/time.h>
-# else
-#  include <time.h>
-# endif
+# include <time.h>
 #endif
 
 #include <sys/socket.h>

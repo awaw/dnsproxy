@@ -1,5 +1,5 @@
-AC_INIT(dnsproxy, 1.17)
-AC_PREREQ(2.60)
+AC_INIT([dnsproxy],[1.17])
+AC_PREREQ([2.69])
 
 AC_CONFIG_HEADERS(config.h)
 AM_INIT_AUTOMAKE
@@ -20,12 +20,14 @@ dnl ------------------------------------------------------------------
 
 AC_USE_SYSTEM_EXTENSIONS
 AC_C_CONST
-AC_HEADER_STDC
-AC_HEADER_TIME
-AC_CHECK_HEADERS(sys/types.h sys/socket.h sys/time.h)
+AC_PROG_EGREP
+
+AC_CHECK_HEADERS(sys/socket.h sys/time.h)
 AC_CHECK_HEADERS(netinet/in.h arpa/inet.h)
 AC_CHECK_HEADERS(errno.h syslog.h)
-AC_TYPE_SIGNAL
+AC_DEFINE_UNQUOTED([RETSIGTYPE],[$ac_cv_type_signal],[Define as the return type of signal handlers
+		    (`int' or `void').])
+
 AC_CACHE_SAVE
 
 dnl ------------------------------------------------------------------
@@ -52,7 +54,7 @@ dnl Enable extended warnings while developing
 dnl ------------------------------------------------------------------
 
 AC_ARG_ENABLE(warnings, [
-AC_HELP_STRING([--enable-warnings],
+AS_HELP_STRING([--enable-warnings],
 [enable all sorts of warnings for debugging])],
 [
 	CFLAGS="${CFLAGS} -Wall -Werror -Wcast-qual -Wmissing-declarations \
@@ -66,7 +68,7 @@ dnl Maximum EDNS packet size
 dnl ------------------------------------------------------------------
 
 AC_ARG_ENABLE([edns], [
-AC_HELP_STRING([--enable-edns=N],
+AS_HELP_STRING([--enable-edns=N],
 [maximum EDNS packet size (default is 4096)])],
 [], [enable_edns=4096])
 AS_IF([test $enable_edns = no], [enable_edns=4096])
@@ -80,17 +82,17 @@ lefound="no"
 LIBS="$LIBS -levent"
 AC_MSG_CHECKING(for libevent)
 AC_ARG_WITH(libevent,
-	AC_HELP_STRING(
-		[--with-libevent=PATH],
-		[directory prefix where libevent is found]
-	),
+	AS_HELP_STRING(
+            [--with-libevent=PATH],
+            [directory prefix where libevent is found
+	]),
 	[
 		if test -f $withval/include/event.h; then
 			CFLAGS="${CFLAGS} -I$withval/include"
 		elif test -f $withval/event.h; then
 			CFLAGS="${CFLAGS} -I$withval"
 		else
-			AC_ERROR([event.h not found])
+			AC_MSG_ERROR(event.h not found)
 		fi
 		if test -f $withval/lib; then
 			LDFLAGS="${LDFLAGS} -L$withval/lib"
@@ -112,12 +114,8 @@ AC_ARG_WITH(libevent,
 				LDFLAGS="$saved_LDFLAGS -L$testdir/lib"
 			fi
 
-			AC_TRY_LINK([#include <sys/time.h>
-			#include <sys/types.h>
-			#include <event.h>],
-			[ event_init(); ],
-		        [ lefound="$testdir" ],
-			[ lefound="no" ])
+			AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <sys/time.h>
+			#include <event.h>]], [[ event_init(); ]])],[ lefound="$testdir" ],[ lefound="no" ])
 
 			if test "$lefound" != "no"; then
 				if test -z "$testdir"; then
@@ -164,7 +162,7 @@ if test -r "dnsproxy.8.in"; then
 	AC_CONFIG_FILES(dnsproxy.8)
 fi
 
-AC_OUTPUT()
+AC_OUTPUT
 
 AC_MSG_RESULT()
 AC_MSG_RESULT([Configured successfully. Now run make.])
